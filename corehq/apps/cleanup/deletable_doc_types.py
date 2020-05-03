@@ -13,11 +13,10 @@ MAIN_DB = None
 DELETABLE_COUCH_DOC_TYPES = {
     'ApiUser': (MAIN_DB,),
     'ApplicationAccess': (MAIN_DB,),
-    'SurveyKeyword': (MAIN_DB,),
-    'SurveyKeywordAction': (MAIN_DB,),
     'CaseReminder': (MAIN_DB,),
     'CaseReminderHandler': (MAIN_DB,),
     'CaseReminderEvent': (MAIN_DB,),
+    'CommtrackConfig': (MAIN_DB,),
     'Dhis2Connection': (MAIN_DB,),
     'ExportMigrationMeta': (settings.META_DB,),
     'ForwardingRule': (MAIN_DB,),
@@ -27,5 +26,7 @@ DELETABLE_COUCH_DOC_TYPES = {
     'ILSGatewayConfig': (MAIN_DB,),
     'RegistrationRequest': (MAIN_DB,),
     'StandaloneTranslationDoc': (MAIN_DB,),
+    'SurveyKeyword': (MAIN_DB,),
+    'SurveyKeywordAction': (MAIN_DB,),
     'WisePillDeviceEvent': (MAIN_DB,),
 }
