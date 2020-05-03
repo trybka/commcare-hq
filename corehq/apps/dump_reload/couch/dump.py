@@ -21,7 +21,6 @@ from corehq.feature_previews import all_previews
 
 DOC_PROVIDERS = {
     DocTypeIDProvider(['Application']),
-    DocTypeIDProvider(['CommtrackConfig']),     # TODO: PR3: delete
     DocTypeIDProvider(['DefaultConsumption']),
     ViewIDProvider('CommCareMultimedia', 'hqmedia/by_domain', DomainKeyGenerator()),
     DocTypeIDProvider(['MobileAuthKeyRecord']),
