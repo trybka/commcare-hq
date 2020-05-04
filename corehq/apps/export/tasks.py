@@ -223,15 +223,24 @@ def generate_schema_for_all_builds(self, schema_cls, domain, app_id, identifier)
 def generate_incremental_exports():
     incremental_exports = IncrementalExport.objects.filter(active=True)
     for incremental_export in incremental_exports:
-        process_incremental_export.delay(incremental_export.id)
+        process_incremental_export.delay(incremental_export.id, force=False)
+
+
+def _sent_in_last_five_minutes(incremental_export):
+    if incremental_export.last_valid_checkpoint:
+        log = incremental_export.last_valid_checkpoint.request_log
+        return (datetime.utcnow() - log.timestamp) <= timedelta(minutes=5)
+    else:
+        return False
 
 
 @task
-def process_incremental_export(incremental_export_id):
+def process_incremental_export(incremental_export_id, force=True):
     incremental_export = IncrementalExport.objects.get(id=incremental_export_id)
-    checkpoint = _generate_incremental_export(incremental_export)
-    if checkpoint:
-        _send_incremental_export(incremental_export, checkpoint)
+    if force or (30 <= datetime.utcnow().minute < 35 and not _sent_in_last_five_minutes(incremental_export)):
+        checkpoint = _generate_incremental_export(incremental_export)
+        if checkpoint:
+            _send_incremental_export(incremental_export, checkpoint)
 
 
 def _generate_incremental_export(incremental_export):
