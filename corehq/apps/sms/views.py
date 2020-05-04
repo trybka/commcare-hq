@@ -48,7 +48,7 @@ from corehq.apps.accounting.models import (
     SoftwarePlanEdition,
     Subscription,
 )
-from corehq.apps.commtrack.models import SQLAlertConfig
+from corehq.apps.commtrack.models import AlertConfig
 from corehq.apps.domain.decorators import (
     domain_admin_required,
     login_and_domain_required,
@@ -1557,7 +1557,7 @@ class SubscribeSMSView(BaseMessagingSectionView):
         if self.commtrack_settings and hasattr(self.commtrack_settings, 'sqlalertconfig'):
             alert_config = self.commtrack_settings.sqlalertconfig
         else:
-            alert_config = SQLAlertConfig()
+            alert_config = AlertConfig()
         initial = {
             'stock_out_facilities': alert_config.stock_out_facilities,
             'stock_out_commodities': alert_config.stock_out_commodities,
